@@ -15,33 +15,60 @@ $errors = [];
 $success = false;
 $formData = [
     'name' => '',
+    'generic_name' => '',
     'description' => '',
     'batch_number' => '',
+    'barcode' => '',
     'quantity' => '',
+    'reorder_level' => 10, // Default reorder level
     'unit_price' => '',
+    'selling_price' => '',
     'expiry_date' => '',
     'supplier' => '',
-    'category' => ''
+    'category' => '',
+    'storage_conditions' => 'Room Temperature' // Default storage
 ];
+
+// Get active suppliers for dropdown
+try {
+    $suppliers = $pdo->query("SELECT supplier_id, name FROM suppliers WHERE is_active = TRUE")->fetchAll(PDO::FETCH_ASSOC);
+} catch (PDOException $e) {
+    $suppliers = [];
+    $errors[] = "Error loading suppliers: " . $e->getMessage();
+}
 
 // Handle form submission
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $formData = [
         'name' => trim($_POST['name'] ?? ''),
+        'generic_name' => trim($_POST['generic_name'] ?? ''),
         'description' => trim($_POST['description'] ?? ''),
         'batch_number' => trim($_POST['batch_number'] ?? ''),
+        'barcode' => trim($_POST['barcode'] ?? ''),
         'quantity' => trim($_POST['quantity'] ?? ''),
+        'reorder_level' => trim($_POST['reorder_level'] ?? 10),
         'unit_price' => trim($_POST['unit_price'] ?? ''),
+        'selling_price' => trim($_POST['selling_price'] ?? ''),
         'expiry_date' => trim($_POST['expiry_date'] ?? ''),
         'supplier' => trim($_POST['supplier'] ?? ''),
-        'category' => trim($_POST['category'] ?? '')
+        'category' => trim($_POST['category'] ?? $_POST['new_category'] ?? ''),
+        'storage_conditions' => trim($_POST['storage_conditions'] ?? 'Room Temperature')
     ];
+
+    // calculate selling price if not provided
+    if (empty($formData['selling_price'])) {
+        $formData['selling_price'] = $formData['unit_price'] * 1.2; // Default selling price is 20% more than unit price
+    }
 
     // Validate inputs
     if (empty($formData['name'])) $errors[] = "Drug name is required";
     if (empty($formData['batch_number'])) $errors[] = "Batch number is required";
     if (!is_numeric($formData['quantity']) || $formData['quantity'] < 1) $errors[] = "Valid quantity is required";
+    if (!is_numeric($formData['reorder_level']) || $formData['reorder_level'] < 0) $errors[] = "Valid reorder level is required";
     if (!is_numeric($formData['unit_price']) || $formData['unit_price'] <= 0) $errors[] = "Valid unit price is required";
+    if (!is_numeric($formData['selling_price']) || $formData['selling_price'] < $formData['unit_price']) {
+        $errors[] = "Selling price must be greater than unit price";
+    }
     if (empty($formData['expiry_date'])) $errors[] = "Expiry date is required";
     elseif (strtotime($formData['expiry_date']) < strtotime('today')) $errors[] = "Expiry date cannot be in the past";
 
@@ -51,23 +78,32 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $pdo->beginTransaction();
             
             $stmt = $pdo->prepare("INSERT INTO drugs 
-                                  (name, description, batch_number, quantity, unit_price, expiry_date, supplier, category) 
-                                  VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+                                  (name, generic_name, description, batch_number, barcode, 
+                                   quantity, reorder_level, unit_price, selling_price, 
+                                   expiry_date, supplier, category, storage_conditions) 
+                                  VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
             $stmt->execute([
                 $formData['name'],
+                $formData['generic_name'],
                 $formData['description'],
                 $formData['batch_number'],
+                $formData['barcode'],
                 $formData['quantity'],
+                $formData['reorder_level'],
                 $formData['unit_price'],
+                $formData['selling_price'],
                 $formData['expiry_date'],
                 $formData['supplier'],
-                $formData['category']
+                $formData['category'],
+                $formData['storage_conditions']
             ]);
             
             $pdo->commit();
             $success = true;
             // Reset form data after successful submission
             $formData = array_fill_keys(array_keys($formData), '');
+            $formData['reorder_level'] = 10; // Reset to default
+            $formData['storage_conditions'] = 'Room Temperature'; // Reset to default
         } catch (PDOException $e) {
             $pdo->rollBack();
             $errors[] = "Error registering drug: " . $e->getMessage();
@@ -240,9 +276,23 @@ try {
                         </div>
                         
                         <div class="form-group">
+                            <label for="generic_name">Generic Name</label>
+                            <input type="text" id="generic_name" name="generic_name" class="form-control" 
+                                   value="<?php echo htmlspecialchars($formData['generic_name']); ?>">
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
                             <label for="batch_number">Batch Number *</label>
                             <input type="text" id="batch_number" name="batch_number" class="form-control" 
                                    value="<?php echo htmlspecialchars($formData['batch_number']); ?>" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="barcode">Barcode</label>
+                            <input type="text" id="barcode" name="barcode" class="form-control" 
+                                   value="<?php echo htmlspecialchars($formData['barcode']); ?>">
                         </div>
                     </div>
                     
@@ -260,9 +310,23 @@ try {
                         </div>
                         
                         <div class="form-group">
+                            <label for="reorder_level">Reorder Level</label>
+                            <input type="number" id="reorder_level" name="reorder_level" class="form-control" 
+                                   min="0" value="<?php echo htmlspecialchars($formData['reorder_level']); ?>">
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
                             <label for="unit_price">Unit Price (ETB) *</label>
                             <input type="number" id="unit_price" name="unit_price" class="form-control" 
                                    min="0" step="0.01" value="<?php echo htmlspecialchars($formData['unit_price']); ?>" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="selling_price">Selling Price (ETB)</label>
+                            <input type="number" id="selling_price" name="selling_price" class="form-control" 
+                                   min="0" step="0.01" value="<?php echo htmlspecialchars($formData['selling_price']); ?>">
                         </div>
                     </div>
                     
@@ -290,10 +354,29 @@ try {
                         </div>
                     </div>
                     
-                    <div class="form-group">
-                        <label for="supplier">Supplier</label>
-                        <input type="text" id="supplier" name="supplier" class="form-control" 
-                               value="<?php echo htmlspecialchars($formData['supplier']); ?>">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="supplier">Supplier</label>
+                            <select id="supplier" name="supplier" class="form-control">
+                                <option value="">Select Supplier</option>
+                                <?php foreach ($suppliers as $supplier): ?>
+                                    <option value="<?php echo htmlspecialchars($supplier['name']); ?>"
+                                        <?php echo $formData['supplier'] === $supplier['name'] ? 'selected' : ''; ?>>
+                                        <?php echo htmlspecialchars($supplier['name']); ?>
+                                    </option>
+                                <?php endforeach; ?>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="storage_conditions">Storage Conditions</label>
+                            <select id="storage_conditions" name="storage_conditions" class="form-control">
+                                <option value="Room Temperature" <?php echo $formData['storage_conditions'] === 'Room Temperature' ? 'selected' : ''; ?>>Room Temperature</option>
+                                <option value="Refrigerated" <?php echo $formData['storage_conditions'] === 'Refrigerated' ? 'selected' : ''; ?>>Refrigerated</option>
+                                <option value="Frozen" <?php echo $formData['storage_conditions'] === 'Frozen' ? 'selected' : ''; ?>>Frozen</option>
+                                <option value="Other" <?php echo $formData['storage_conditions'] === 'Other' ? 'selected' : ''; ?>>Other</option>
+                            </select>
+                        </div>
                     </div>
                     
                     <div class="form-actions">
@@ -329,6 +412,14 @@ try {
             }
         });
         
+        // Auto-calculate selling price if empty
+        document.getElementById('unit_price').addEventListener('change', function() {
+            const sellingPriceInput = document.getElementById('selling_price');
+            if (!sellingPriceInput.value && this.value) {
+                sellingPriceInput.value = (parseFloat(this.value) * 1.2).toFixed(2);
+            }
+        });
+        
         // Form validation
         document.querySelector('form').addEventListener('submit', function(e) {
             const expiryDate = new Date(document.getElementById('expiry_date').value);
@@ -339,6 +430,15 @@ try {
                 e.preventDefault();
                 alert('Expiry date cannot be in the past');
                 document.getElementById('expiry_date').focus();
+            }
+            
+            const unitPrice = parseFloat(document.getElementById('unit_price').value);
+            const sellingPrice = parseFloat(document.getElementById('selling_price').value);
+            
+            if (sellingPrice < unitPrice) {
+                e.preventDefault();
+                alert('Selling price must be greater than unit price');
+                document.getElementById('selling_price').focus();
             }
         });
     </script>
