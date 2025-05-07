@@ -1,6 +1,6 @@
 <!-- Public Website Footer -->
 <footer style="
-    background: #2c3e50;
+    background:rgb(27, 114, 201);
     color: #fff;
     padding: 2rem 0;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -22,7 +22,7 @@
                 flex-direction: column;
             ">
                 <h3 style="
-                    color: #3498db;
+                    color:rgb(190, 196, 201);
                     margin-bottom: 1rem;
                     font-size: 1.2rem;
                 ">Quick Links</h3>
@@ -50,7 +50,7 @@
                 flex-direction: column;
             ">
                 <h3 style="
-                    color: #3498db;
+                    color:rgb(196, 206, 212);
                     margin-bottom: 1rem;
                     font-size: 1.2rem;
                 ">Services</h3>
@@ -72,7 +72,7 @@
                 flex-direction: column;
             ">
                 <h3 style="
-                    color: #3498db;
+                    color:rgb(201, 209, 213);
                     margin-bottom: 1rem;
                     font-size: 1.2rem;
                 ">Connect</h3>

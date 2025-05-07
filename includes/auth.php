@@ -43,7 +43,8 @@ function hasPermission($permission) {
             'view_expiry_reports',
             'manage_users',
             'manage_inventory',
-            'view_all_sales'
+            'view_all_sales',
+            'view_drugs',
         ],
         'pharmacist' => [
             'view_inventory_reports',

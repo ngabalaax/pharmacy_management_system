@@ -24,7 +24,6 @@ body {
     position: sticky;
     top: 70px;
     height: calc(100vh - 70px);
-    overflow-y: auto;
     transition: all 0.3s ease;
 }
 

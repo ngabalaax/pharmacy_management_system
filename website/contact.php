@@ -82,6 +82,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <p><i class="fas fa-envelope"></i> <strong>Email:</strong> info@hananpharmacy.com</p>
                     
                     <p><i class="fas fa-clock"></i> <strong>Opening Hours:</strong><br>
+                    
                     Monday-Friday: 8:00 AM - 8:00 PM<br>
                     Saturday: 9:00 AM - 6:00 PM<br>
                     Sunday: 10:00 AM - 4:00 PM</p>

@@ -1,0 +1,246 @@
+/* Inventory Report Styles */
+.report-filters {
+    background: #fff;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    margin-bottom: 1.5rem;
+}
+
+.report-filters .form-row {
+    display: flex;
+    gap: 1rem;
+    align-items: flex-end;
+    flex-wrap: wrap;
+}
+
+.report-filters .form-group {
+    flex: 1;
+    min-width: 180px;
+}
+
+.report-filters label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    color: #555;
+}
+
+.report-filters input[type="date"] {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1rem;
+}
+
+.btn {
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 4px;
+    font-size: 1rem;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: all 0.3s;
+}
+
+.btn-filter {
+    background: #3498db;
+    color: white;
+}
+
+.btn-filter:hover {
+    background: #2980b9;
+}
+
+.btn-print {
+    background: #95a5a6;
+    color: white;
+}
+
+.btn-print:hover {
+    background: #7f8c8d;
+}
+
+/* Summary Cards */
+.summary-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.summary-card {
+    background: #fff;
+    border-radius: 8px;
+    padding: 1.5rem;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.summary-card .card-icon {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    color: white;
+}
+
+.summary-card .card-content h3 {
+    margin: 0 0 0.25rem;
+    font-size: 1rem;
+    font-weight: 500;
+    color: #555;
+}
+
+.summary-card .card-content p {
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #2c3e50;
+}
+
+/* Card specific styles */
+.total-items .card-icon { background: #3498db; }
+.out-of-stock .card-icon { background: #e74c3c; }
+.low-stock .card-icon { background: #f39c12; }
+.expiring-soon .card-icon { background: #9b59b6; }
+.expired .card-icon { background: #34495e; }
+.total-value .card-icon { background: #2ecc71; }
+
+/* Inventory Table */
+.inventory-table-container {
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    overflow: hidden;
+}
+
+.table-header {
+    padding: 1.5rem;
+    border-bottom: 1px solid #eee;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.table-header h2 {
+    margin: 0;
+    font-size: 1.25rem;
+    color: #2c3e50;
+}
+
+.table-actions {
+    display: flex;
+    gap: 1rem;
+}
+
+#searchInput {
+    padding: 0.75rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    min-width: 250px;
+}
+
+.inventory-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.inventory-table th {
+    padding: 1rem;
+    text-align: left;
+    background: #f8f9fa;
+    font-weight: 500;
+    color: #555;
+    border-bottom: 1px solid #eee;
+}
+
+.inventory-table td {
+    padding: 1rem;
+    border-bottom: 1px solid #eee;
+    vertical-align: middle;
+}
+
+.inventory-table tr:last-child td {
+    border-bottom: none;
+}
+
+.inventory-table tr:hover {
+    background: #f8f9fa;
+}
+
+/* Status badges */
+.status-badge {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    margin-right: 0.5rem;
+}
+
+.status-badge.in-stock {
+    background: rgba(46, 204, 113, 0.1);
+    color: #27ae60;
+}
+
+.status-badge.low-stock {
+    background: rgba(241, 196, 15, 0.1);
+    color: #f39c12;
+}
+
+.status-badge.out-of-stock {
+    background: rgba(231, 76, 60, 0.1);
+    color: #c0392b;
+}
+
+.status-badge.expiring {
+    background: rgba(155, 89, 182, 0.1);
+    color: #8e44ad;
+}
+
+.status-badge.expired {
+    background: rgba(52, 73, 94, 0.1);
+    color: #2c3e50;
+}
+
+/* Row status colors */
+.inventory-table tr.out-of-stock td {
+    background: rgba(231, 76, 60, 0.05);
+}
+
+.inventory-table tr.low-stock td {
+    background: rgba(241, 196, 15, 0.05);
+}
+
+.inventory-table tr.expired td {
+    background: rgba(52, 73, 94, 0.05);
+}
+
+/* Print styles */
+@media print {
+    .sidebar, .report-filters, .table-actions {
+        display: none;
+    }
+    
+    .content {
+        margin: 0;
+        padding: 0;
+    }
+    
+    .inventory-table {
+        width: 100%;
+    }
+    
+    .inventory-table th, .inventory-table td {
+        padding: 0.5rem;
+    }
+}

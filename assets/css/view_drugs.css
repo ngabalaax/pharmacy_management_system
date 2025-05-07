@@ -1,0 +1,322 @@
+/* assets/css/view_drugs.css */
+
+/* Main content styling */
+.content {
+    padding: 2rem;
+    background-color: #f5f7fa;
+}
+
+.dashboard-header {
+    margin-bottom: 2rem;
+}
+
+.dashboard-header h1 {
+    color: #2c3e50;
+    margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.dashboard-header h1 i {
+    color: #3498db;
+}
+
+.welcome-message {
+    color: #7f8c8d;
+    font-size: 1rem;
+    margin: 0;
+}
+
+/* Filter container styling */
+.filter-container {
+    background-color: #fff;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    margin-bottom: 2rem;
+}
+
+.filter-form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    align-items: flex-end;
+}
+
+.form-group {
+    flex: 1;
+    min-width: 200px;
+}
+
+.search-group {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.search-group i {
+    position: absolute;
+    left: 1rem;
+    color: #95a5a6;
+}
+
+.search-input {
+    width: 100%;
+    padding: 0.75rem 1rem 0.75rem 2.5rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+.search-input:focus {
+    border-color: #3498db;
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
+}
+
+.filter-select {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1rem;
+    background-color: white;
+    cursor: pointer;
+}
+
+.filter-select:focus {
+    border-color: #3498db;
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
+}
+
+.form-actions {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+/* Button styling */
+.btn {
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 4px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.btn-primary {
+    background-color: #3498db;
+    color: white;
+}
+
+.btn-primary:hover {
+    background-color: #2980b9;
+}
+
+.btn-secondary {
+    background-color: #95a5a6;
+    color: white;
+}
+
+.btn-secondary:hover {
+    background-color: #7f8c8d;
+}
+
+.btn-sm {
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+}
+
+.btn-edit {
+    background-color: #f39c12;
+    color: white;
+}
+
+.btn-edit:hover {
+    background-color: #e67e22;
+}
+
+/* Data section styling */
+.data-section {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    padding: 1.5rem;
+}
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.section-header h2 {
+    margin: 0;
+    font-size: 1.25rem;
+    color: #2c3e50;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.section-header h2 i {
+    color: #3498db;
+}
+
+.results-count {
+    font-size: 0.9rem;
+    color: #7f8c8d;
+}
+
+/* Table styling */
+.table-responsive {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+table th {
+    background-color: #f8f9fa;
+    padding: 1rem;
+    text-align: left;
+    font-weight: 600;
+    color: #2c3e50;
+    border-bottom: 2px solid #eee;
+}
+
+table td {
+    padding: 1rem;
+    border-bottom: 1px solid #eee;
+    vertical-align: middle;
+}
+
+table tr:last-child td {
+    border-bottom: none;
+}
+
+table tr:hover {
+    background-color: #f8f9fa;
+}
+
+/* Status indicators */
+.status-badge {
+    display: inline-block;
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.status-badge.valid {
+    background-color: rgba(46, 204, 113, 0.1);
+    color: #27ae60;
+}
+
+.status-badge.expiring {
+    background-color: rgba(241, 196, 15, 0.1);
+    color: #f39c12;
+}
+
+.status-badge.expired {
+    background-color: rgba(231, 76, 60, 0.1);
+    color: #e74c3c;
+}
+
+.status-badge.warning {
+    background-color: rgba(241, 196, 15, 0.1);
+    color: #f39c12;
+}
+
+/* Status text colors */
+.expired {
+    color: #e74c3c;
+    font-weight: 600;
+}
+
+.expiring {
+    color: #f39c12;
+    font-weight: 600;
+}
+
+.low-stock {
+    color: #e74c3c;
+    font-weight: 600;
+}
+
+/* Actions column */
+.actions {
+    white-space: nowrap;
+}
+
+/* No data message */
+.no-data {
+    text-align: center;
+    padding: 3rem;
+    color: #95a5a6;
+}
+
+.no-data i {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    color: #bdc3c7;
+}
+
+.no-data p {
+    margin: 0;
+    font-size: 1.1rem;
+}
+
+/* Print specific styles */
+@media print {
+    .sidebar, .dashboard-header h1 i, .btn, .section-header h2 i, .actions {
+        display: none !important;
+    }
+
+    .content {
+        margin-left: 0 !important;
+        padding: 0 !important;
+    }
+
+    .filter-container {
+        display: none !important;
+    }
+
+    table {
+        width: 100%;
+        border: 1px solid #ddd;
+    }
+
+    table th {
+        background-color: #f1f1f1 !important;
+        -webkit-print-color-adjust: exact;
+    }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .filter-form {
+        flex-direction: column;
+    }
+
+    .form-group {
+        width: 100%;
+    }
+
+    .form-actions {
+        width: 100%;
+        justify-content: flex-start;
+    }
+}

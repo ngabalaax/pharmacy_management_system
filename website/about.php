@@ -18,9 +18,7 @@ include '../includes/website_header.php';
                     </ul>
                     <p>Our mission is to provide accessible, reliable pharmaceutical care to the Jigjiga community while maintaining the highest standards of professionalism.</p>
                 </div>
-                <div class="about-image">
-                    <img src="../assets/images/pharmacy-interior.jpg" alt="Hanan Pharmacy Interior" loading="lazy">
-                </div>
+                
             </div>
         </div>
     </section>
@@ -31,22 +29,28 @@ include '../includes/website_header.php';
             <h2>Meet Our Team</h2>
             <div class="team-grid">
                 <div class="team-card">
-                    <img src="../assets/images/team1.jpg" alt="Dr. Ahmed Mohamed" loading="lazy">
-                    <h3>Dr. Ahmed Mohamed</h3>
-                    <p>Head Pharmacist</p>
+                    <img src="../assets/images/jungle.jpg" alt="Khalid Adam" loading="lazy">
+                    <h3>Khalid Adam</h3>
+                    <p>Manager</p>
                     <p class="team-bio">With over 10 years of experience, Dr. Ahmed ensures all medications meet quality standards.</p>
                 </div>
                 <div class="team-card">
-                    <img src="../assets/images/team2.jpg" alt="Nurse Fatima Hussein" loading="lazy">
-                    <h3>Fatima Hussein</h3>
-                    <p>Senior Pharmacy Technician</p>
+                    <img src="../assets/images/jungle.jpg" alt="Najeb Mohamed" loading="lazy">
+                    <h3>Najib Mohamed</h3>
+                    <p>Pharmacist</p>
                     <p class="team-bio">Specializes in patient counseling and medication management.</p>
                 </div>
                 <div class="team-card">
-                    <img src="../assets/images/team3.jpg" alt="Abdullahi Ali" loading="lazy">
-                    <h3>Abdullahi Ali</h3>
-                    <p>Inventory Manager</p>
+                    <img src="../assets/images/jungle.jpg" alt="Adnan Mohamed" loading="lazy">
+                    <h3>Adnan Mohamed</h3>
+                    <p>Store coordinatorr</p>
                     <p class="team-bio">Oversees our automated inventory system and supply chain.</p>
+                </div>
+                <div class="team-card">
+                    <img src="../assets/images/jungle.jpg" alt="Sakariye Abdikadir" loading="lazy">
+                    <h3>Sakariye Abdikadir</h3>
+                    <p>Cashier</p>
+                    <p class="team-bio">Dedicated to ensuring our patients receive friendly and helpful service at all times.</p>
                 </div>
             </div>
         </div>

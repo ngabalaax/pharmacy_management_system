@@ -67,7 +67,7 @@ CREATE TABLE suppliers (
     INDEX idx_name (name)
 ) ENGINE=InnoDB;
 
--- Sales table with payment information
+-- Update your sales table creation to:
 CREATE TABLE sales (
     sale_id INT AUTO_INCREMENT PRIMARY KEY,
     invoice_number VARCHAR(20) NOT NULL UNIQUE,
@@ -78,7 +78,7 @@ CREATE TABLE sales (
     discount DECIMAL(10,2) DEFAULT 0.00,
     tax_amount DECIMAL(10,2) DEFAULT 0.00,
     total_amount DECIMAL(10,2) NOT NULL,
-    payment_method ENUM('cash', 'card', 'mobile_money', 'insurance') NOT NULL,
+    payment_method ENUM('cash', 'card', 'mobile_money', 'insurance') NOT NULL DEFAULT 'cash',
     payment_status ENUM('pending', 'paid', 'partially_paid') DEFAULT 'paid',
     sale_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     notes TEXT,
